@@ -18,6 +18,7 @@ namespace RestWithASPNETUdemy.Controllers
             _logger = logger;
         }
 
+
         [HttpGet("sum/(firstNumber}/{secondNumber}")]
         public IActionResult Get(string firstNumber, string secondNumber)
         {
@@ -29,14 +30,27 @@ namespace RestWithASPNETUdemy.Controllers
             return BadRequest("Invalid Input");
         }
 
-        private int ConvertToDecimal(string firstNumber)
+        private decimal ConvertToDecimal(string strNumber)
         {
-            throw new NotImplementedException();
+            decimal decimalValue;
+            if (decimal.TryParse(strNumber, out decimalValue))
+            {
+                return decimalValue;
+            }
+
+            return 0;
         }
 
-        private bool IsNumeric(string firstNumber)
+        private bool IsNumeric(string strNumber)
         {
-            throw new NotImplementedException();
+            double number;
+            bool IsNumber = double.TryParse(
+                strNumber, 
+                System.Globalization.NumberStyles.Any, 
+                System.Globalization.NumberFormatInfo.InvariantInfo, 
+                out number);
+
+            return IsNumber;
         }
     }
 }
